@@ -1,0 +1,65 @@
+Flow overview: 
+-----
+
+- Update a db with the service's current image
+- Delete all images: Leave the latest 200 images + the current one
+
+
+Arquitecture:
+-------------
+
+- Job, that will: 
+  - Get the info from the k8 cluster = Current pod image
+  - Store it in a database: See about serveless db, dynamodb, rds postgres, simpledb
+  - Delete the right images.
+
+- Database to store the infos
+
+- Registry to be cleaned
+
+* Thoughts
+ - Should be two services? 
+   1- For check the repos and delete the images: if the repo has more than 500 trigger the k8 job?
+   2- The k8 job will get the info and update the database.
+===============================================
+
+
+Step 1: GEt the current images on k8 cluster
+------
+
+- A job that will list all services in a k8 cluster
+- Get the current images of the pods
+- Store It in a database
+
+Step 2: Delete the right images: Leave the 500 latest images + the current one.
+------
+
+- Check if the repository has more than 500 images, if yes, continue, if not stop the job.
+- Find images that are older than the latest 500 images.
+- Delete the right images
+- Flag the service repository is ok.
+
+
+Step 3: Improvements:
+-------
+  - Create the logging strucure
+  - Unity tests
+  - Integration tests
+  - Packing the code, pip
+  - Create the docker image ready to use
+
+
+===============================================
+
+* Problems:
+  - If the repo has less than 500 images?
+     Answer: The images should not be deleted.
+
+  - 
+
+
+Ideas:
+  - Flag the service repository as ok or not based on the amount of images on the repository
+  - Walk through the clusters to get current images
+  - Create an abstraction to work with another registry and other service environmet: k8, ecs, beanstalk
+  -

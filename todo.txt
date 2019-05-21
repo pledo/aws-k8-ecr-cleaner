@@ -1,0 +1,4 @@
+- Find the current image of the pod
+- Find the current image of the pod of the all services
+-  
+- Store the data in the DB
